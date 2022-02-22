@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tax Issue</title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <style type="text/css">
+
+        label {
+            font-weight: bold;
+        }
+
+        #Container {
+
+            width: 600px;
+            margin-top: 50px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h2 {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="Container">
+    <h2>Issue a Tax Due</h2>
+    <form action="http://192.168.0.106:5000/issue-tax" method="post">
+        <div class="form-group">
+            <label for="exampleFormControlInput1">GST Number</label>
+            <input name="gst_num" class="form-control" id="exampleFormControlInput1" placeholder="GST number"
+                   value="{{ gst }}">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Title</label>
+            <input name="title" class="form-control" id="exampleFormControlInput1" placeholder="Title">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Total Amount</label>
+            <input name="total_amount" class="form-control" id="exampleFormControlInput1" placeholder="Total Amount">
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Transaction Type</label>
+                    <select class="form-control" name="transaction_type" id="exampleFormControlSelect1">
+                        <option>Interstate</option>
+                        <option>Intrastate</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">GST</label>
+                    <input name="GST" class="form-control" id="exampleFormControlInput1" placeholder="GST">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">CGST</label>
+                    <input name="CGST" class="form-control" id="exampleFormControlInput1" placeholder="CGST">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">SGST</label>
+                    <input name="SGST" class="form-control" id="exampleFormControlInput1" placeholder="SGST">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">IGST</label>
+                    <input name="IGST" class="form-control" id="exampleFormControlInput1" placeholder="IGST">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Penalty</label>
+                    <input name="Penalty" class="form-control" id="exampleFormControlInput1" placeholder="Penalty">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Net Amount</label>
+                    <input name="net_income" class="form-control" id="exampleFormControlInput1"
+                           placeholder="Net income">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Total Tax</label>
+                    <input name="total_tax" class="form-control" id="exampleFormControlInput1" placeholder="Total Tax">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Issued By</label>
+                    <input name="issued_by" class="form-control" id="exampleFormControlInput1"
+                           placeholder="Accountant Name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Due Date</label>
+                    <input name="due_date" class="form-control" id="exampleFormControlInput1" placeholder="DD-MM-YYYY">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-secondary" value="Issue Due"/>
+        </div>
+    </form>
+</div>
+</body>
+</html>

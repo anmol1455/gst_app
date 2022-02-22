@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Accountant View</title>
+    <style type="text/css">
+        h2 {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .Container {
+            width: 50%;
+            margin-top: 50px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            font-weight: bold;
+        }
+
+
+    </style>
+
+</head>
+<body>
+<h2>Welcome {{ PersonalData.email }}</h2>
+<div class="Container">
+    <form class="form-inline my-2 my-lg-0" target="_blank" action="http://192.168.0.106:5000/Create-new-tax" method="post">
+        <label>
+            <input class="form-control mr-sm-2" name="gst_num" placeholder="GST Number"/>
+        </label>
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Create Tax Due</button>
+    </form>
+</div>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+<div class="row">
+    <div class="col">
+        <div class="Container">
+            {% for payers in tax_payers %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ payers.business_name }}</h5>
+                        <p class="card-text">GST Number : {{ payers.gst_num }} </p>
+                        <p class="card-text">PAN Number : {{ payers.pan_num }}</p>
+                        <p class="card-text">Constitution : {{ payers.constitution }}</p>
+                        <p class="card-text">Address : {{ payers.address }}</p>
+                        <form target="_blank" action="http://192.168.0.106:5000/Update-TaxPayer-data/{{ payers.id }}"
+                              method="post">
+                            <input type="submit"
+                                   class="btn btn-secondary" value="Edit"/>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col">
+        <div class="Container">
+            {% for Tax in Taxes %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ Tax.business_name }}</h5>
+                        <h6 class="card-title">{{ Tax.title }}</h6>
+                        <div class="row">
+                            <div class="col">
+                                <p class="card-text">Total Amount : {{ Tax.total_amount }} </p>
+                                <p class="card-text">Penalty : {{ Tax.Penalty }}</p>
+                                <p class="card-text">Net Amount : {{ Tax.net_income }}</p>
+                                <p class="card-text">Total Tax : {{ Tax.total_tax }}</p>
+                                <p class="card-text">Issued By : {{ Tax.issued_by }}</p>
+                                <p class="card-text">Due Date : {{ Tax.due_date }}</p>
+                            </div>
+                            <div class="col">
+                                <p class="card-text">Transaction Type : {{ Tax.transaction_type }}</p>
+                                <p class="card-text">GST : {{ Tax.GST }}</p>
+                                <p class="card-text">CGST : {{ Tax.CGST }}</p>
+                                <p class="card-text">SGST : {{ Tax.SGST }}</p>
+                                <p class="card-text">IGST : {{ Tax.IGST }}</p>
+                            </div>
+                        </div>
+
+                        <form target="_blank" action="http://192.168.0.106:5000/Update-Tax-data/{{ Tax.id }}" method="post">
+                            <input type="submit"
+                                   class="btn btn-primary" value="Edit">
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+
+</body>
+<script>
+
+</script>
+</html>

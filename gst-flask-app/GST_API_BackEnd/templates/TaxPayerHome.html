@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tax Payer Home</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <style type="text/css">
+
+        label {
+            font-weight: bold;
+        }
+
+        #Container {
+
+            width: 600px;
+            margin-top: 50px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h2 {
+            margin-top: 30px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .Container {
+            width: 50%;
+            margin-top: 50px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+{% if not_registred %}
+    <div id="Container">
+        <h2>Please Register Your Business</h2>
+        <form action="http://192.168.0.106:5000/business-registration/{{ id }}" method="post">
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Legal Business Name</label>
+                <input name="business_name" class="form-control" id="exampleFormControlInput1" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">GST Number</label>
+                <input name="gst_num" class="form-control" id="exampleFormControlInput1" placeholder="GST number">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Pan card Number</label>
+                <input name="pan_num" class="form-control" id="exampleFormControlInput1" placeholder="Pan card numberr">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Constitution</label>
+                <select class="form-control" name="constitution" id="exampleFormControlSelect1">
+                    <option>Individual</option>
+                    <option>Partnership</option>
+                    <option>Company</option>
+                    <option>HUF</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Business Address</label>
+                <textarea name="address" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-secondary" value="Register"/>
+            </div>
+        </form>
+    </div>
+
+{% else %}
+    <div>
+        <h2>Welcome {{ Name }}</h2>
+        {% if Taxes|length == 0 %}
+            <h2>No tax Dues Yet</h2>
+        {% endif %}
+        <div class="Container">
+            {% for Tax in Taxes %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ Tax.title }}</h5>
+                        <div class="row">
+                            <div class="col">
+                                <p class="card-text">Total Amount : {{ Tax.total_amount }} </p>
+                                <p class="card-text">Penalty : {{ Tax.Penalty }}</p>
+                                <p class="card-text">Net Amount : {{ Tax.net_income }}</p>
+                                <p class="card-text">Total Tax : {{ Tax.total_tax }}</p>
+                                <p class="card-text">Issued By : {{ Tax.issued_by }}</p>
+                                <p class="card-text">Due Date : {{ Tax.due_date }}</p>
+                            </div>
+                            <div class="col">
+                                <p class="card-text">Transaction Type : {{ Tax.transaction_type }}</p>
+                                <p class="card-text">GST : {{ Tax.GST }}</p>
+                                <p class="card-text">CGST : {{ Tax.CGST }}</p>
+                                <p class="card-text">SGST : {{ Tax.SGST }}</p>
+                                <p class="card-text">IGST : {{ Tax.IGST }}</p>
+                            </div>
+                        </div>
+
+                        <form target="_blank" action="http://192.168.0.106:5000/Pay-tax/{{ Tax.id }}" method="post">
+                            <input type="submit"
+                                   class="btn btn-primary" value="Pay">
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endif %}
+
+
+</body>
+
+</html>

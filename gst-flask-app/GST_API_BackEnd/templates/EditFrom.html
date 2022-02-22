@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Data</title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <style type="text/css">
+
+        label {
+            font-weight: bold;
+        }
+
+        #Container {
+
+            width: 600px;
+            margin-top: 50px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h2{
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+ <div id="Container">
+        <h2>Update Business Data</h2>
+        <form action="http://192.168.0.106:5000/business-registration/{{ id }}"  method="post">
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Legal Business Name</label>
+                <input name="business_name" class="form-control" id="exampleFormControlInput1" placeholder="Name" value="{{ data.business_name }}">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">GST Number</label>
+                <input name="gst_num" class="form-control" id="exampleFormControlInput1" value="{{ data.gst_num }}" >
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Pan card Number</label>
+                <input name="pan_num" class="form-control" id="exampleFormControlInput1" value="{{ data.pan_num }}" placeholder="Pan card numberr">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Constitution</label>
+                <select class="form-control" name="constitution" id="exampleFormControlSelect1">
+                    <option>Individual</option>
+                    <option>Partnership</option>
+                    <option>Company</option>
+                    <option>HUF</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Business Address</label>
+                <textarea name="address" value="{{ data.address }}" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-secondary" value="Update"/>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
